@@ -1,0 +1,48 @@
+Given an array that contains both positive and negative integers, the task is to find the product of the maximum product subarray. 
+SOLUTION:-
+public class MaximumProductSubarray {
+
+    public static int maxProduct(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+        int maxEndingHere = nums[0];
+        int minEndingHere = nums[0];
+        int maxSoFar = nums[0];
+
+        for (int i = 1; i < nums.length; i++) {
+            int current = nums[i];
+
+            int tempMax = Math.max(current, Math.max(maxEndingHere * current, minEndingHere * current));
+            int tempMin = Math.min(current, Math.min(maxEndingHere * current, minEndingHere * current));
+            
+            maxSoFar = Math.max(maxSoFar, tempMax);
+            
+            
+            maxEndingHere = tempMax;
+            minEndingHere = tempMin;
+        }
+
+        return maxSoFar;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {2, 3, -2, 4};
+        System.out.println("Maximum product subarray: " + maxProduct(nums)); // Output: 6
+        
+        int[] nums2 = {-2, 0, -1};
+        System.out.println("Maximum product subarray: " + maxProduct(nums2)); // Output: 0
+        
+        int[] nums3 = {-2, 3, -4};
+        System.out.println("Maximum product subarray: " + maxProduct(nums3)); // Output: 24
+    }
+}
+
+
+
+
+
+
+
+
